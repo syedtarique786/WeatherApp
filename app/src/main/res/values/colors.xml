@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="feature_box_indigo">#3CF1EBF1</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_grey">#e5e5e5</color>
+    <color name="color_gradient_blue">#122259</color>
+    <color name="color_gradient_pink">#9561a1</color>
+
+    <color name="tv_txt_grey_error">#929292</color>
+    <color name="tv_txt_grey_item">#25282B</color>
+    <color name="tv_txt_black">#4A4A4A</color>
+    <color name="brdr_green">#31B057</color>
+    <color name="btn_err_bck">#FFFFFF</color>
+
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_20">
+
+
+    <LinearLayout
+        android:id="@+id/overviewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/label_check_weather"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/sp_24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_manual_entry"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_60"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/label_entering_manually"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_20" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_gps_location"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_60"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/label_by_location"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_20" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

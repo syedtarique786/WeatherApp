@@ -1,0 +1,92 @@
+//Key and type definitions
+def BOOLEAN = "boolean"
+def STRING = "String"
+def TRUE = "true"
+def FALSE = "false"
+def APP_API_BASE_URL = "APP_API_BASE_URL"
+def LOG_LEVEL_DEBUG = "LOG_LEVEL_DEBUG"
+def APP_ENDPOINT = "APP_ENDPOINT"
+def DEFAULT_CITY = "DEFAULT_CITY"
+def APP_KEY = "APP_KEY"
+
+def APP_BASE_URI_STAGGING = "\"https://api.openweathermap.org/data/2.5/\""
+def APP_BASE_URI_PROD = "\"https://api.openweathermap.org/data/2.5/\""
+def APP_CURRENT = "\"search/repositories\""
+def APP_DEFAULT_CITY = "\"New Delhi,Ind\""
+def APP_API_KEY = "\"aa40eee270f54ed8fbc0e41d8bf3c788\""
+
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
+    defaultConfig {
+        applicationId "com.android.weatherapp"
+        minSdkVersion project.ext.min_sdk_version
+        targetSdkVersion project.ext.target_sdk_version
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            buildConfigField BOOLEAN, LOG_LEVEL_DEBUG, FALSE
+            buildConfigField STRING, APP_API_BASE_URL, APP_BASE_URI_PROD
+            buildConfigField STRING, DEFAULT_CITY, APP_DEFAULT_CITY
+            buildConfigField STRING, APP_KEY, APP_API_KEY
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            buildConfigField BOOLEAN, LOG_LEVEL_DEBUG, TRUE
+            applicationIdSuffix ".debug"
+            buildConfigField STRING, APP_API_BASE_URL, APP_BASE_URI_STAGGING
+            buildConfigField STRING, APP_ENDPOINT, APP_CURRENT
+            buildConfigField STRING, DEFAULT_CITY, APP_DEFAULT_CITY
+            buildConfigField STRING, APP_KEY, APP_API_KEY
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding.enabled = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.appcompat:appcompat:${appcompat_version}"
+    implementation "androidx.core:core-ktx:${appcompat_version}"
+
+    implementation "androidx.constraintlayout:constraintlayout:${constraint_version}"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${widget_version}"
+    implementation "androidx.cardview:cardview:${widget_version}"
+    implementation "androidx.recyclerview:recyclerview:${widget_version}"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}"
+
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
+
+    //Retrofit & Interceptor
+    implementation "com.google.code.gson:gson:${gson_version}"
+    implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:${retrofit_urlconnection_version}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${retrofit_logging_version}"
+
+    //Testing framework
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+repositories {
+    mavenCentral()
+}

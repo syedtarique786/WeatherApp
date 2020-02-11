@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.android.weatherapp.model.viewmodel.WeatherByGpsViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rootContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
+
+
+        <LinearLayout
+            android:id="@+id/ll_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_gradient_blue"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.isLoading() ? View.GONE : View.VISIBLE}"
+            android:padding="@dimen/dp_5">
+
+            <TextView
+                android:id="@+id/tvCityName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="City Name"
+                android:text="@{viewModel.weatherByGps.city.name}"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tvTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/label_timezone_formatted(viewModel.weatherByGps.city.getTimeZone)}"
+                tools:text="Timezone"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvForecast"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_forecast"
+            android:layout_below="@+id/ll_city"/>
+
+
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}" />
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:text="@string/something_went_wrong" />
+
+        <include
+            android:id="@+id/loading_error_layout"
+            layout="@layout/layout_error"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            />
+
+
+    </RelativeLayout>
+
+</layout>
