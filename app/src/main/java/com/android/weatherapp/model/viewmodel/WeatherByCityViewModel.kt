@@ -1,5 +1,7 @@
 package com.android.weatherapp.model.viewmodel
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView.OnEditorActionListener
 import androidx.databinding.BindingAdapter
@@ -20,11 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
-import android.text.Editable
-import android.text.TextWatcher
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.util.Log
-import java.util.*
 
 
 /**
@@ -61,9 +58,6 @@ class WeatherByCityViewModel : ViewModel() {
     val uiState: LiveData<UIModel>
         get() = _uiState
 
-    private val _reFetchingState = MutableLiveData<Unit>()
-    val reFetchingState: LiveData<Unit>
-        get() = _reFetchingState
 
     private val _showError = MutableLiveData<String>()
     val showError: LiveData<String>
@@ -73,24 +67,39 @@ class WeatherByCityViewModel : ViewModel() {
     val searchEnable: LiveData<Boolean>
         get() = _searchEnable
 
-    private fun searchCities(cities: String) {
+    fun searchCities(cities: String) {
         //Log.e("SearchCities", " $cities")
         val searchKey: List<String> = cities.trim().split(",")
-        if (searchKey.size < 3) {
-            _showError.value = "Please enter at lest 3 cities name to find weather."
-            return
-        }
-        _searchEnable.value = true
-        for (city in searchKey) {
-            isValidCityToSearch(city).let {
-                if (it) {
-                    fetchCitiesWeather(city)
-                } else {
-                    _showError.value = "Not a valid city name to search for, please try with different name"
+        if (isCitiesCountAreValid(searchKey)) {
+            _searchEnable.value = true
+            for (city in searchKey) {
+                isValidCityToSearch(city).let {
+                    if (it) {
+                        fetchCitiesWeather(city)
+                    } else {
+                        _showError.value = "Not valid city/cities name to search for, please try with different name"
+                    }
                 }
             }
         }
+
     }
+
+    /**
+     * Check if entered cities name are in desired range
+     * @param searchKey Cities name to check for the City count
+     * @return true if its in range of 3-7 otherwise false*/
+     fun isCitiesCountAreValid(searchKey: List<String>): Boolean {
+        if (searchKey.size < 3) {               // Min limit
+            _showError.value = "Please enter at lest 3 cities name to find weather."
+            return false
+        } else if (searchKey.size > 7) {        //Max Limit
+            _showError.value = "You can't search more than 7 cities at once."
+            return false
+        }
+        return true
+    }
+
 
     var watcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {

@@ -1,4 +1,4 @@
-package com.android.weatherapp.utils
+package com.android.weatherapp.view
 
 import android.annotation.SuppressLint
 import android.view.KeyEvent
@@ -9,9 +9,6 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.adapters.TextViewBindingAdapter
 import com.android.weatherapp.model.viewmodel.CustomOnEditorActionListener
 import android.text.TextWatcher
-import android.os.Build
-import android.graphics.drawable.Drawable
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.android.weatherapp.R
 import java.lang.NullPointerException
@@ -39,19 +36,14 @@ fun EditText.onEditorEnterAction(f: Function1<String, Unit>?) {
             else -> false
         }
 
-        val keydownEvent = event?.keyCode == KeyEvent.KEYCODE_SEARCH
-                && event.action == KeyEvent.ACTION_DOWN
+        val keydownEvent = event?.keyCode == KeyEvent.KEYCODE_ENTER
+                || event?.action == KeyEvent.ACTION_DOWN
 
+        // Return true if action is consumed, otherwise false.
         if (imeAction or keydownEvent)
             true.also { f(v.editableText.toString()) }
         else false
     }
-}
-
-
-@BindingAdapter("android:onTextChanged")
-fun setListener(view: TextView, onTextChanged: TextViewBindingAdapter.OnTextChanged) {
-    //setListener(view, null, onTextChanged, null)
 }
 
 

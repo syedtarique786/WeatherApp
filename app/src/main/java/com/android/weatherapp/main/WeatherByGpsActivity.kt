@@ -194,7 +194,7 @@ class WeatherByGpsActivity : AppCompatActivity(), RecyclerViewClickListener {
                     } else {
                         latitude = location.latitude
                         longitude = location.longitude
-                        showToast(this, "Your location " + latitude + " " + longitude)
+                        //showToast(this, "Your location " + latitude + " " + longitude)
 
                         if(isInternetOn(application)) {
                             if (latitude != 0.0 && longitude != 0.0) {
