@@ -90,7 +90,7 @@ data class ForeCastItem(
 
     fun getDT(): String? {
         return try {
-            SimpleDateFormat("EEEE, MMM yy hh:mm a", Locale.ENGLISH).format(Date(dt!! * 1000))
+            SimpleDateFormat("EEE, MMM dd, hh:mm a", Locale.ENGLISH).format(Date(dt!! * 1000))
         } catch (ex: Exception) {
             when(ex) {
                 is NumberFormatException, is IndexOutOfBoundsException, is IllegalArgumentException-> {

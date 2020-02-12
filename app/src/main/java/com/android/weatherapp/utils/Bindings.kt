@@ -1,5 +1,6 @@
 package com.android.weatherapp.utils
 
+import android.annotation.SuppressLint
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -7,6 +8,13 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.adapters.TextViewBindingAdapter
 import com.android.weatherapp.model.viewmodel.CustomOnEditorActionListener
+import android.text.TextWatcher
+import android.os.Build
+import android.graphics.drawable.Drawable
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import com.android.weatherapp.R
+import java.lang.NullPointerException
 
 
 /**
@@ -58,5 +66,22 @@ fun setCustomOnEditorActionListener(view: TextView, listener: CustomOnEditorActi
                 return false
             }
         })
+    }
+}
+
+@BindingAdapter("textChangedListener")
+fun bindTextWatcher(editText: EditText, textWatcher: TextWatcher) {
+    editText.addTextChangedListener(textWatcher)
+}
+
+
+@SuppressLint("ResourceAsColor")
+@BindingAdapter("backgroundColor")
+fun bindBackgroundColor(layout: RelativeLayout, color: Int) {
+    try {
+        layout.setBackgroundColor(color)
+    } catch (ex : NullPointerException) {
+        ex.printStackTrace()
+        layout.setBackgroundColor(R.color.feature_box_indigo)
     }
 }

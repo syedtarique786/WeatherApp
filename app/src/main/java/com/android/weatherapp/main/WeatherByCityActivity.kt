@@ -20,6 +20,7 @@ import com.android.weatherapp.model.viewmodel.WeatherByCityViewModel
 import com.android.weatherapp.ui.CitiesWeatherAdapter
 import com.android.weatherapp.utils.nonNullObserve
 import com.android.weatherapp.utils.showToast
+import com.android.weatherapp.utils.showToastL
 import com.android.weatherapp.view.RecyclerViewClickListener
 import kotlinx.android.synthetic.main.activity_weather_city.*
 
@@ -39,27 +40,17 @@ class WeatherByCityActivity : AppCompatActivity(), RecyclerViewClickListener {
 
     override fun onStart() {
         super.onStart()
-        subscribeUi()
+        //subscribeUi()
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_city)
-        //setContentView(R.layout.activity_weather_city)
         initViews()
         mViewModelFactory = defaultViewModelProviderFactory
         binding.viewModel = weatherViewModel
-
-        /*et_city_search.setOnEditorActionListener(OnEditorActionListener { view, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val searchKey: List<String> = view.text.toString().split(",")
-                for (city in searchKey) {
-                    fetchWeatherData(city.trim())
-                }
-            }
-            false
-        })*/
+        subscribeUi()
     }
 
 
@@ -104,6 +95,14 @@ class WeatherByCityActivity : AppCompatActivity(), RecyclerViewClickListener {
         weatherViewModel.showError.observe(this, Observer { errMsg ->
             showErrorLayout(errMsg)
         })
+
+        weatherViewModel.searchEnable.observe(this, Observer { it ->
+            it.let {
+                //val dummy : ByCityModel
+                citiesWeatherAdapter.clearList()
+                citiesWeatherAdapter.notifyDataSetChanged()
+            }
+        })
     }
 
 
@@ -121,21 +120,13 @@ class WeatherByCityActivity : AppCompatActivity(), RecyclerViewClickListener {
         if (weatherResponse.getStatus() == 200) {
             citiesWeatherAdapter.addItem(weatherViewModel.getWeatherRepository()?.value!!)
             binding.viewModel = weatherViewModel
-            binding.rvCityWeather.adapter = citiesWeatherAdapter
+            //binding.rvCityWeather.adapter = citiesWeatherAdapter
             citiesWeatherAdapter.notifyDataSetChanged()
 
             showDataOnUi()
         } else {  // Error
             showErrorLayout(weatherResponse.getMessage())
         }
-    }
-
-
-
-
-    private fun fetchWeatherData(key: String) {
-        showLoaderOnUi()
-        //weatherViewModel.fetchCitiesWeather(key)
     }
 
 
@@ -180,7 +171,8 @@ class WeatherByCityActivity : AppCompatActivity(), RecyclerViewClickListener {
         } ?: run {
             tvNoCityError.text = getString(R.string.something_went_wrong)
         }
-        showToast(this@WeatherByCityActivity, tvNoCityError.text.toString())
+        showToastL(this@WeatherByCityActivity, tvNoCityError.text.toString())
+        tvNoCityError.visibility = View.GONE
     }
 
     private fun hideErrorLayout() {

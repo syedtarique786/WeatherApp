@@ -17,10 +17,10 @@
     <string name="message_missing_google_play">You need to install Google Play Services to use the App properly</string>
     <string name="msg_something_went_wrong">Something went wrong, please try again</string>
     <string name="msg_check_connectivity">You\'re device seems to be offline. Please check your internet connectivity</string>
-    <string name="label_temp">%1$.1f °C</string>
+    <string name="label_temp">%1$s °C</string>
     <string name="label_min_temp_format">Min Temp %1$.1f °C</string>
     <string name="label_max_temp_format">Max Temp %1$.1f °C</string>
-    <string name="label_updated_at">Updated at %1$s</string>
+    <string name="label_updated_at">Last updated %1$s</string>
     <string name="label_check_weather">Check Weather By</string>
     <string name="label_entering_manually">Entering Manually</string>
     <string name="label_by_location">GPS Location</string>

@@ -114,6 +114,12 @@ fun showToast(context: Context, msg: String) {
     toast.show()
 }
 
+fun showToastL(context: Context, msg: String) {
+    val toast = Toast.makeText(context, msg, Toast.LENGTH_LONG)
+    toast.setGravity(Gravity.CENTER, 0, 500)
+    toast.show()
+}
+
 fun isValidCityToSearch(city: String) : Boolean{
     return !TextUtils.isEmpty(city) && city.length>=3
 }

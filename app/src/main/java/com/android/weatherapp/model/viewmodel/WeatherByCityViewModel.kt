@@ -20,6 +20,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
+import android.text.Editable
+import android.text.TextWatcher
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.util.Log
+import java.util.*
 
 
 /**
@@ -64,6 +69,9 @@ class WeatherByCityViewModel : ViewModel() {
     val showError: LiveData<String>
         get() = _showError
 
+    private val _searchEnable = MutableLiveData<Boolean>()
+    val searchEnable: LiveData<Boolean>
+        get() = _searchEnable
 
     private fun searchCities(cities: String) {
         //Log.e("SearchCities", " $cities")
@@ -72,7 +80,7 @@ class WeatherByCityViewModel : ViewModel() {
             _showError.value = "Please enter at lest 3 cities name to find weather."
             return
         }
-        _mutableLiveData.value = null
+        _searchEnable.value = true
         for (city in searchKey) {
             isValidCityToSearch(city).let {
                 if (it) {
@@ -81,6 +89,21 @@ class WeatherByCityViewModel : ViewModel() {
                     _showError.value = "Not a valid city name to search for, please try with different name"
                 }
             }
+        }
+    }
+
+    var watcher: TextWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            //Log.e("afterTextChanged", s.toString())
+            _searchEnable.value = false
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            //Log.e("beforeTextChanged", s.toString())
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            //Log.e("onTextChanged", s.toString())
         }
     }
 

@@ -2,6 +2,7 @@ package com.android.weatherapp.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -113,9 +114,14 @@ class ByCityModel {
 
     fun getDt(): String {
         return try {
-            SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(dt!! * 1000))
-        } catch (ex: NumberFormatException) {
-            ""
+            SimpleDateFormat("EEE, MMM dd, hh:mm a", Locale.ENGLISH).format(Date(dt!! * 1000))
+        } catch (ex: Exception) {
+            when(ex) {
+                is java.lang.NumberFormatException, is IndexOutOfBoundsException, is IllegalArgumentException -> {
+                    ""
+                }
+                else -> throw ex
+            }
         }
     }
 

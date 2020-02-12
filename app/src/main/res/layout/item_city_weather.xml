@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="com.android.weatherapp.R" />
 
         <variable
             name="pos"
@@ -34,7 +35,7 @@
             android:orientation="vertical">
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/addressContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,28 +43,7 @@
                 android:padding="@dimen/dp_5"
                 android:background="@color/feature_box_indigo"
                 android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/tv_city_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/tv_txt_grey_error"
-                    android:textSize="@dimen/sp_14"
-                    android:text="@{@string/label_city_country(cityModel.cityName, cityModel.sys.country)}"
-                    tools:text="20 April 2012, 20:08 PM" />
-
-
-                <TextView
-                    android:id="@+id/updated_at"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/tv_txt_grey_error"
-                    android:textSize="@dimen/sp_14"
-                    android:text="@{cityModel.getDt}"
-                    tools:text="20 April 2012, 20:08 PM" />
+                <!--app:backgroundColor="@{cityModel.weather.get(0).icon}"-->
 
                 <TextView
                     android:id="@+id/tv_weather_status"
@@ -73,9 +53,34 @@
                     android:textColor="@color/tv_txt_grey_error"
                     android:textSize="@dimen/sp_14"
                     android:textAllCaps="true"
+                    android:layout_alignParentStart="true"
                     android:text="@{cityModel.weather.get(0).main}"
                     tools:text="@string/label_clear_sky" />
-            </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/updated_at"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/tv_txt_grey_error"
+                    android:textSize="@dimen/sp_14"
+                    android:layout_alignParentEnd="true"
+                    android:text="@{cityModel.getDt}"
+                    tools:text="20 April 2012, 20:08 PM" />
+
+                <TextView
+                    android:id="@+id/tv_city_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/tv_txt_grey_error"
+                    android:textSize="@dimen/sp_18"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="@{@string/label_city_country(cityModel.cityName, cityModel.sys.country)}"
+                    tools:text="Delhi, IN" />
+            </RelativeLayout>
 
             <Space
                 android:layout_width="wrap_content"
@@ -116,7 +121,7 @@
                         android:id="@+id/tv_min_temp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Float.toString(cityModel.main.minTemp)}"
+                        android:text="@{@string/label_temp(Float.toString(cityModel.main.minTemp))}"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_13"
                         tools:text="Min Temp " />
@@ -229,7 +234,7 @@
                         android:id="@+id/tv_max_temp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Float.toString(cityModel.main.maxTemp)}"
+                        android:text="@{@string/label_temp(Float.toString(cityModel.main.maxTemp))}"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_13"
                         tools:text="Max Temp " />
@@ -268,7 +273,7 @@
                         android:id="@+id/tv_feels_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Float.toString(cityModel.main.feelsLike)}"
+                        android:text="@{@string/label_temp(Float.toString(cityModel.main.feelsLike))}"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_13"
                         tools:text="16.44" />

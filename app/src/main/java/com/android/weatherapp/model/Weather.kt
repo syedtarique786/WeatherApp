@@ -1,5 +1,6 @@
 package com.android.weatherapp.model
 
+import android.graphics.Color
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -39,21 +40,9 @@ data class Weather(val id: Int,
         }
     }
 
+    fun getIcon(): Int {
+        return Color.parseColor(icon)
+    }
+
 }
 
-/*@SerializedName("id")
-    @Expose
-    private var id: Int = 0
-
-    @SerializedName("main")
-    @Expose
-    private var main: String = ""
-
-    @SerializedName("description")
-    @Expose
-    private var description: String = ""
-
-
-    @SerializedName("icon")
-    @Expose
-    private var icon: String = ""*/

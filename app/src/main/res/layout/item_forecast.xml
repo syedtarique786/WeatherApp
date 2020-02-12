@@ -43,6 +43,16 @@
                 android:background="@color/feature_box_indigo"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/tv_weather_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/tv_txt_grey_error"
+                    android:textSize="@dimen/sp_16"
+                    android:textAllCaps="true"
+                    android:text="@{gpsModel.weather.get(0).main}"
+                    tools:text="@string/label_clear_sky" />
 
                 <TextView
                     android:id="@+id/updated_at"
@@ -50,20 +60,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="@color/tv_txt_grey_error"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginTop="@dimen/dp_5"
                     android:text="@{@string/label_updated_at(gpsModel.getDT)}"
                     tools:text="20 April 2012, 20:08 PM" />
 
-                <TextView
-                    android:id="@+id/tv_weather_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/tv_txt_grey_error"
-                    android:textSize="@dimen/sp_14"
-                    android:textAllCaps="true"
-                    android:text="@{gpsModel.weather.get(0).main}"
-                    tools:text="@string/label_clear_sky" />
             </LinearLayout>
 
             <Space
@@ -105,7 +106,7 @@
                         android:id="@+id/tv_min_temp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Float.toString(gpsModel.main.minTemp)}"
+                        android:text="@{@string/label_temp(Float.toString(gpsModel.main.minTemp))}"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_13"
                         tools:text="Min Temp " />
@@ -218,7 +219,7 @@
                         android:id="@+id/tv_max_temp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Float.toString(gpsModel.main.maxTemp)}"
+                        android:text="@{@string/label_temp(Float.toString(gpsModel.main.maxTemp))}"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_13"
                         tools:text="Max Temp " />
@@ -257,7 +258,7 @@
                         android:id="@+id/tv_feels_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Float.toString(gpsModel.main.feelsLike)}"
+                        android:text="@{@string/label_temp(Float.toString(gpsModel.main.feelsLike))}"
                         android:textColor="@color/color_white"
                         android:textSize="@dimen/sp_13"
                         tools:text="16.44" />

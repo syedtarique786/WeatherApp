@@ -56,4 +56,9 @@ class CitiesWeatherAdapter(private var clickListener: RecyclerViewClickListener)
         citiesWeatherList.add(value)
         notifyDataSetChanged()
     }
+
+    fun clearList() {
+        citiesWeatherList.clear()
+        notifyDataSetChanged()
+    }
 }

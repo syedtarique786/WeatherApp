@@ -40,7 +40,7 @@
                 android:textColor="@color/color_white"
                 android:textColorHint="@color/tv_txt_grey_error"
                 app:onEditorEnterAction="@{viewModel.searchCities}"
-
+                app:textChangedListener="@{viewModel.watcher}"
                 />
         </LinearLayout>
 

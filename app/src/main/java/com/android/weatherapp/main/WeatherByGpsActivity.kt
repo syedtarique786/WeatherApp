@@ -53,7 +53,7 @@ class WeatherByGpsActivity : AppCompatActivity(), RecyclerViewClickListener {
         if (mFusedLocationClient == null) {
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         }
-        subscribeUi()
+        //subscribeUi()
     }
 
 
@@ -67,6 +67,7 @@ class WeatherByGpsActivity : AppCompatActivity(), RecyclerViewClickListener {
 
         binding.viewModel = weatherViewModel
         binding.executePendingBindings()
+        subscribeUi()
     }
 
 
